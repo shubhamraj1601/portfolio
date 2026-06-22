@@ -1,0 +1,1 @@
+This is a dummy certificate file. Replace this file with your actual certificate PDF later.
