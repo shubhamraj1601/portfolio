@@ -7,7 +7,7 @@ export const portfolioData = {
     name: "Shubham Raj",
     role: "Data Engineer",
     tagline: "Building digital experiences that combine beautiful design with robust engineering.",
-    resumeLink: "/resume.txt",
+    resumeLink: "/Shubham_Resume.pdf",
   },
 
   about: {
