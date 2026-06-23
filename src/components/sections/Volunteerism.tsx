@@ -29,7 +29,7 @@ export default function Volunteerism() {
               <Heart size={18} style={{ color: 'var(--accent-primary)' }} />
               <h3 style={{ fontSize: '1.125rem', color: 'var(--text-primary)' }}>{vol.role}</h3>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem' }}>
               <h4 style={{ fontSize: '0.95rem', color: 'var(--accent-secondary)' }}>{vol.organization}</h4>
               <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'monospace' }}>{vol.duration}</span>
             </div>

@@ -5,47 +5,75 @@ import { portfolioData } from '../../data/content';
 export default function Skills() {
   const { skills } = portfolioData;
 
-  const SkillCategory = ({ title, items, delay }: { title: string, items: string[], delay: number }) => (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.5, delay }}
-      className="glass"
-      style={{ padding: '2rem', borderRadius: 'var(--radius-md)', flex: '1 1 300px' }}
-    >
-      <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', color: 'var(--accent-primary)', textAlign: 'center' }}>
-        {title}
-      </h3>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
-        {items.map(skill => (
-          <span
-            key={skill}
-            style={{
-              padding: '0.5rem 1rem',
-              background: 'var(--bg-secondary)',
-              border: '1px solid var(--border-color)',
-              borderRadius: 'var(--radius-sm)',
-              color: 'var(--text-primary)',
-              fontSize: '0.9rem',
-              transition: 'all 0.2s ease',
-              cursor: 'default'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.borderColor = 'var(--accent-primary)';
-              e.currentTarget.style.transform = 'translateY(-2px)';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.borderColor = 'var(--border-color)';
-              e.currentTarget.style.transform = 'translateY(0)';
-            }}
-          >
-            {skill}
-          </span>
-        ))}
-      </div>
-    </motion.div>
-  );
+  const SkillCategory = ({ title, items, delay }: { title: string, items: string[], delay: number }) => {
+    const containerVariants = {
+      hidden: { opacity: 0, y: 30 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: 0.6,
+          staggerChildren: 0.05,
+          delayChildren: delay
+        }
+      }
+    };
+
+    const itemVariants = {
+      hidden: { opacity: 0, scale: 0.8, y: 15 },
+      visible: {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        transition: {
+          type: 'spring',
+          stiffness: 120,
+          damping: 10
+        }
+      }
+    };
+
+    return (
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="glass"
+        style={{ padding: 'clamp(1.25rem, 4vw, 2rem)', borderRadius: 'var(--radius-md)', flex: '1 1 280px' }}
+      >
+        <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', color: 'var(--accent-primary)', textAlign: 'center' }}>
+          {title}
+        </h3>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
+          {items.map(skill => (
+            <motion.span
+              key={skill}
+              variants={itemVariants}
+              whileHover={{ 
+                scale: 1.05, 
+                borderColor: 'var(--accent-primary)',
+                color: 'var(--accent-secondary)'
+              }}
+              style={{
+                padding: '0.5rem 1rem',
+                background: 'var(--bg-secondary)',
+                border: '1px solid var(--border-color)',
+                borderRadius: 'var(--radius-sm)',
+                color: 'var(--text-primary)',
+                fontSize: '0.9rem',
+                cursor: 'default',
+                display: 'inline-block',
+                transition: 'border-color 0.2s, color 0.2s'
+              }}
+            >
+              {skill}
+            </motion.span>
+          ))}
+        </div>
+      </motion.div>
+    );
+  };
 
   return (
     <section id="skills" className="section container">

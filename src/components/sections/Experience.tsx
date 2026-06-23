@@ -13,12 +13,12 @@ export default function Experience() {
         {experience.map((job, i) => (
           <motion.div 
             key={job.id}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
+            transition={{ type: 'spring', bounce: 0.25, duration: 0.7, delay: i * 0.15 }}
             className="glass hover-lift"
-            style={{ padding: '2rem', borderRadius: 'var(--radius-md)' }}
+            style={{ padding: 'clamp(1.25rem, 4vw, 2rem)', borderRadius: 'var(--radius-md)' }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
               <div>

@@ -10,17 +10,17 @@ export default function Projects() {
     <section id="projects" className="section container">
       <SectionHeading title="Featured Projects" subtitle="Some things I've built" />
       
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '2rem' }}>
         {projects.map((project, i) => (
           <motion.div
             key={project.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: i * 0.15, type: 'spring', stiffness: 100 }}
-            whileHover={{ y: -10, boxShadow: '0 20px 40px -20px var(--accent-glow)' }}
+            transition={{ type: 'spring', stiffness: 80, damping: 12, delay: i * 0.15 }}
+            whileHover={{ y: -12, scale: 1.02, boxShadow: '0 25px 50px -12px var(--accent-glow)' }}
             className="glass"
-            style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', display: 'flex', flexDirection: 'column', position: 'relative', background: 'var(--bg-glass)' }}
+            style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', display: 'flex', flexDirection: 'column', position: 'relative', background: 'var(--bg-glass)', transition: 'box-shadow 0.3s ease' }}
           >
             <div className="project-image-container" style={{ position: 'relative', height: '220px', overflow: 'hidden' }}>
               <img 
@@ -34,9 +34,17 @@ export default function Projects() {
             
             <div style={{ padding: '2rem', flexGrow: 1, display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 2, marginTop: '-3rem' }}>
               <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--text-primary)', fontWeight: 700 }}>{project.title}</h3>
-              <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', flexGrow: 1, fontSize: '1rem', lineHeight: 1.6 }}>
-                {project.description}
-              </p>
+              <div style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', flexGrow: 1, fontSize: '1rem', lineHeight: 1.6 }}>
+                {Array.isArray(project.description) ? (
+                  project.description.map((para, idx) => (
+                    <p key={idx} style={{ marginBottom: idx === project.description.length - 1 ? 0 : '0.75rem' }}>
+                      {para}
+                    </p>
+                  ))
+                ) : (
+                  <p>{project.description}</p>
+                )}
+              </div>
               
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '2rem' }}>
                 {project.technologies.map(tech => (

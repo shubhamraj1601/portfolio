@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import Navbar from './components/layout/Navbar'
 import Hero from './components/sections/Hero'
@@ -19,8 +20,18 @@ function App() {
     restDelta: 0.001
   });
 
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <div className="app-container">
+      <div className="cursor-glow" />
       <motion.div className="progress-bar" style={{ scaleX }} />
       <Navbar />
       <main>

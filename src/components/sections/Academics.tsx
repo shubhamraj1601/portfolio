@@ -14,10 +14,10 @@ export default function Academics() {
         {academics.map((edu, i) => (
           <motion.div
             key={edu.id}
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
+            transition={{ type: 'spring', stiffness: 90, damping: 14, delay: i * 0.15 }}
             style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}
           >
             <div style={{
@@ -25,7 +25,8 @@ export default function Academics() {
               padding: '1rem',
               borderRadius: 'var(--radius-full)',
               color: 'var(--accent-primary)',
-              border: '1px solid var(--border-color)'
+              border: '1px solid var(--border-color)',
+              flexShrink: 0
             }}>
               <GraduationCap size={24} />
             </div>
