@@ -26,13 +26,16 @@ export default function About() {
               boxShadow: '0 10px 30px -10px rgba(0,0,0,0.1)'
             }}
           >
-            <p style={{ 
-              fontSize: '1.2rem', 
-              color: 'var(--text-secondary)',
-              lineHeight: '1.8'
-            }}>
-              {portfolioData.about.summary}
-            </p>
+            {portfolioData.about.paragraphs.map((paragraph, index) => (
+              <p key={index} style={{ 
+                fontSize: '1.2rem', 
+                color: 'var(--text-secondary)',
+                lineHeight: '1.8',
+                marginBottom: index !== portfolioData.about.paragraphs.length - 1 ? '1.5rem' : 0
+              }}>
+                {paragraph}
+              </p>
+            ))}
           </motion.div>
         </motion.div>
       </div>

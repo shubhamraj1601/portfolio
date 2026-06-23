@@ -11,44 +11,60 @@ export const portfolioData = {
   },
 
   about: {
-    summary: "I'm a passionate data engineer with over 2 years of experience in enterprise-scale cloud migrations, ETL pipeline development, and EDW modernization on GCP, backed by a strong foundation in software engineering and full-stack development.",
+    paragraphs: [
+      "I'm a passionate data engineer with over 2 years of experience in enterprise-scale cloud migrations, ETL pipeline development, and EDW modernization on GCP, backed by a strong foundation in software engineering and full-stack development.",
+      "Committed to continuous learning and am looking to contribute in challenging projects, known for developing creative and effective solutions. I am actively strengthening my current skills, exploring new ways of machine learning and aspiring to be a part of the ever-growing technical field.",
+      "I believe that data is the key to unlocking business value, and I am passionate about using my skills to help organizations make better decisions and achieve their goals."
+    ],
   },
 
   experience: [
     {
       id: 1,
       role: "Data Engineer",
-      company: "Tech Innovations Inc.",
-      duration: "Jan 2022 - Present",
-      description: "Led the development of a next-generation dashboard using React and TypeScript. Improved performance by 40% and mentored junior developers.",
-      technologies: ["React", "TypeScript", "Vite", "Zustand"]
+      company: "Quantiphi Analytics",
+      duration: "Jan 2023 - Present",
+      description: "Worked on Data Migration projects for global clients, migrating terabytes of data from legacy on-premises data centers to cloud platforms like Snowflake and Google Cloud. Orchestrated complex ETL/ELT pipelines using Apache Airflow & DBT, ensuring data integrity and minimal downtime during migration windows.",
+      technologies: ["Google Cloud Platform", "Apache Airflow", "PySpark/Apache Spark", "DBT", "Snowflake", "Data Migration", "ETL/ELT", "Python", "SQL"]
     },
     {
       id: 2,
-      role: "Software Engineer",
-      company: "Digital Solutions LLC",
-      duration: "Jun 2019 - Dec 2021",
-      description: "Developed and maintained full-stack web applications. Implemented RESTful APIs and integrated third-party payment gateways.",
-      technologies: ["Node.js", "Express", "MongoDB", "Vue.js"]
+      role: "Full Stack Developer - Intern",
+      company: "Mudrika Finance Pvt Ltd.",
+      duration: "Apr 2022 - Jun 2022",
+      description: "Full-stack developer experienced in building responsive React Native apps, optimizing web dashboards, designing robust APIs and database models, and implementing secure JWT authentication.",
+      technologies: ["React Native", "React", "Node.js", "PHP", "MySQL", "JWT"]
+    },
+    {
+      id: 3,
+      role: "Backend Developer - Intern",
+      company: "Dr. Reddys Laboratories Pvt Ltd.",
+      duration: "Jul 2021 - Nov 2021",
+      description: "Developed a reactive web application featuring secure, role-based data access and efficient API pipelines optimized to fetch, cache, and display millions of data points seamlessly.",
+      technologies: ["React.js", "Node.js", "Express", "BigQuery", "Firebase"]
     }
   ],
 
   projects: [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      description: "A fully featured e-commerce platform with real-time inventory management and Stripe integration.",
-      image: "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=1000",
-      technologies: ["Next.js", "Tailwind CSS", "Prisma", "PostgreSQL"],
-      githubUrl: "#",
-      liveUrl: "#"
+      title: "Career Choice Questionnaire - Yancha",
+      description: ["Engineered a full-stack career assessment web application featuring dynamic question generation, robust state management, secure user authentication, and automated report generation.",
+        "Architected a backend API and MySQL database to store user data, implementing a behavioral analysis model (RAPD) that evaluates traits to deliver tailored career recommendations."
+      ],
+      image: "/yancha.png",
+      technologies: ["Vue.js", "Tailwind CSS", "Flask", "MySQL", "Deployment", "Session Storage", "State Management"],
+      // githubUrl: "#",
+      liveUrl: "https://www.yancha.in/"
     },
     {
       id: 2,
-      title: "Task Management App",
-      description: "A collaborative task management tool with real-time updates using WebSockets.",
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&q=80&w=1000",
-      technologies: ["React", "Node.js", "Socket.io", "Redis"],
+      title: "Claims Automation",
+      description: ["Developed scalable .NET Core 8.0 APIs following SOLID and MVC principles, alongside intuitive Blazor WebAssembly user interfaces and reusable components for a seamless user experience.",
+        "Designed the complete database schema, dependencies, and complex stored procedures, delivering a system projected to reduce average insurance claims processing time by 90%."
+      ],
+      image: "/claims.png",
+      technologies: [".NET Core 8.0", "Blazor WebAssembly", "SQL Server", "MSSQL", "MVC", "Entity Framework"],
       githubUrl: "#",
       liveUrl: "#"
     }
