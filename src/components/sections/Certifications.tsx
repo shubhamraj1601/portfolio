@@ -18,18 +18,20 @@ export default function Certifications() {
             rel="noopener noreferrer"
             download
             key={cert.id}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
-            className="glass hover-lift"
+            transition={{ type: 'spring', stiffness: 100, damping: 12, delay: i * 0.15 }}
+            whileHover={{ scale: 1.03, y: -5, boxShadow: '0 15px 30px -10px var(--accent-glow)' }}
+            className="glass"
             style={{ 
               padding: '1.5rem', 
               borderRadius: 'var(--radius-md)', 
               display: 'flex', 
               alignItems: 'center', 
               gap: '1rem',
-              color: 'inherit'
+              color: 'inherit',
+              transition: 'box-shadow 0.3s ease'
             }}
           >
             <div style={{ color: 'var(--accent-primary)' }}>

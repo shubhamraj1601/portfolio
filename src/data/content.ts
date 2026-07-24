@@ -113,10 +113,10 @@ export const portfolioData = {
   volunteerism: [
     {
       id: 1,
-      role: "Code Mentor",
-      organization: "Tech for Good",
-      duration: "2020 - Present",
-      description: "Mentoring underprivileged youth in web development fundamentals."
+      role: "Open Source Contribution",
+      organization: "Girlscript Winter of Contribution",
+      duration: "Sep 2021 - Nov 2021",
+      description: "Contributed by adding well-documented solutions for Data Structures, C/C++, and Competitive Programming topics to their shared repository."
     }
   ],
 
