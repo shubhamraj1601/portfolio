@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import Navbar from './components/layout/Navbar'
+import SocialSidebars from './components/layout/SocialSidebars'
+import FloatingSideElements from './components/layout/FloatingSideElements'
 import Hero from './components/sections/Hero'
 import About from './components/sections/About'
 import Experience from './components/sections/Experience'
@@ -34,6 +36,8 @@ function App() {
       <div className="cursor-glow" />
       <motion.div className="progress-bar" style={{ scaleX }} />
       <Navbar />
+      <SocialSidebars />
+      <FloatingSideElements />
       <main>
         <Hero />
         <About />
@@ -51,4 +55,3 @@ function App() {
 }
 
 export default App
-

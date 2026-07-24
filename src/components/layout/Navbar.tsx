@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 30);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth >= 768) {
+      setIsMobile(window.innerWidth < 992);
+      if (window.innerWidth >= 992) {
         setIsOpen(false);
       }
     };
@@ -30,7 +30,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
     document.documentElement.setAttribute('data-theme', savedTheme);
   }, []);
@@ -47,98 +47,108 @@ export default function Navbar() {
     { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
     { name: 'Skills', href: '#skills' },
+    { name: 'Academics', href: '#academics' },
+    { name: 'Certifications', href: '#certifications' },
+    { name: 'Leadership', href: '#leadership' },
     { name: 'Contact', href: '#contact' },
   ];
 
   return (
     <motion.header 
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 50,
-        padding: isMobile ? '0.75rem 1.25rem' : '1rem 2rem',
+        zIndex: 100,
+        padding: isMobile ? '0.75rem 1rem' : '1rem 2rem',
         background: scrolled || isOpen ? 'var(--bg-glass)' : 'transparent',
-        backdropFilter: scrolled || isOpen ? 'blur(12px)' : 'none',
-        WebkitBackdropFilter: scrolled || isOpen ? 'blur(12px)' : 'none',
+        backdropFilter: scrolled || isOpen ? 'blur(16px)' : 'none',
+        WebkitBackdropFilter: scrolled || isOpen ? 'blur(16px)' : 'none',
         borderBottom: scrolled || isOpen ? '1px solid var(--border-color)' : '1px solid transparent',
-        transition: 'all 0.3s ease'
+        transition: 'background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease'
       }}
     >
       <nav className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <a href="#" style={{ fontSize: '1.5rem', fontWeight: 800, fontFamily: 'var(--font-heading)' }}>
-          <span className="gradient-text-accent">Port</span>folio.
+        <a href="#" style={{ fontSize: '1.4rem', fontWeight: 800, fontFamily: 'var(--font-heading)', display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
+          <span className="gradient-text-accent">Shubham</span>
+          <span style={{ color: 'var(--text-primary)' }}>Raj</span>
         </a>
         
-        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '0.75rem' : '2rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '0.5rem' : '1.5rem' }}>
           {!isMobile && (
-            <ul style={{ display: 'flex', gap: '2rem' }}>
-              {navLinks.map((link, i) => (
-                <motion.li 
-                  key={link.name}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * i }}
-                >
-                  <a href={link.href} style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--text-secondary)' }}>
+            <ul style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <a 
+                    href={link.href} 
+                    style={{ 
+                      fontSize: '0.88rem', 
+                      fontWeight: 600, 
+                      color: 'var(--text-secondary)',
+                      padding: '0.35rem 0.6rem',
+                      borderRadius: 'var(--radius-sm)',
+                      transition: 'color 0.2s'
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.color = 'var(--accent-primary)';
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.color = 'var(--text-secondary)';
+                    }}
+                  >
                     {link.name}
                   </a>
-                </motion.li>
+                </li>
               ))}
             </ul>
           )}
           
           <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
             onClick={toggleTheme}
             aria-label="Toggle Theme"
             style={{
-              background: 'none',
+              background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
               color: 'var(--text-primary)',
               cursor: 'pointer',
-              padding: '0.5rem',
               borderRadius: '50%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              width: '40px',
-              height: '40px'
+              width: '38px',
+              height: '38px',
+              boxShadow: 'var(--shadow-subtle)'
             }}
           >
-            {theme === 'dark' ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            )}
+            {theme === 'dark' ? <Sun size={18} style={{ color: '#fbbf24' }} /> : <Moon size={18} style={{ color: 'var(--accent-primary)' }} />}
           </motion.button>
 
           {isMobile && (
             <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle Menu"
               style={{
-                background: 'none',
+                background: 'var(--bg-secondary)',
                 border: '1px solid var(--border-color)',
                 color: 'var(--text-primary)',
                 cursor: 'pointer',
-                padding: '0.5rem',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '40px',
-                height: '40px'
+                width: '38px',
+                height: '38px'
               }}
             >
-              {isOpen ? <X size={20} /> : <Menu size={20} />}
+              {isOpen ? <X size={18} /> : <Menu size={18} />}
             </motion.button>
           )}
         </div>
@@ -161,34 +171,34 @@ export default function Navbar() {
               WebkitBackdropFilter: 'blur(20px)',
               borderBottom: '1px solid var(--border-color)',
               overflow: 'hidden',
-              zIndex: 40
+              zIndex: 99
             }}
           >
-            <ul style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', padding: '1.5rem 1.25rem' }}>
-              {navLinks.map((link, i) => (
-                <motion.li 
-                  key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * i }}
-                >
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: '1.25rem' }}>
+              {navLinks.map((link) => (
+                <li key={link.name}>
                   <a 
                     href={link.href} 
                     onClick={() => setIsOpen(false)}
                     style={{ 
-                      fontSize: '1.05rem', 
+                      fontSize: '1rem', 
                       fontWeight: 600, 
                       color: 'var(--text-secondary)',
                       display: 'block',
                       transition: 'color 0.2s',
-                      padding: '0.25rem 0'
+                      padding: '0.6rem 0.75rem',
+                      borderRadius: 'var(--radius-sm)'
                     }}
-                    onMouseOver={(e) => e.currentTarget.style.color = 'var(--accent-primary)'}
-                    onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.color = 'var(--accent-primary)';
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.color = 'var(--text-secondary)';
+                    }}
                   >
                     {link.name}
                   </a>
-                </motion.li>
+                </li>
               ))}
             </ul>
           </motion.div>

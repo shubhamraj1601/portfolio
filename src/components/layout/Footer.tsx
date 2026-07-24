@@ -1,20 +1,36 @@
 import { portfolioData } from '../../data/content';
-import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, Award } from 'lucide-react';
 
 export default function Footer() {
-  const { contact } = portfolioData;
+  const { contact, hero } = portfolioData;
 
   return (
-    <footer style={{ padding: '2rem', borderTop: '1px solid var(--border-color)', textAlign: 'center' }}>
+    <footer style={{ padding: '2.5rem 1.5rem', borderTop: '1px solid var(--border-color)', textAlign: 'center', background: 'var(--bg-primary)' }}>
       <div className="container">
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginBottom: '1.5rem' }}>
-          {contact.github && <a href={contact.github} aria-label="GitHub"><Github size={20} /></a>}
-          {contact.linkedin && <a href={contact.linkedin} aria-label="LinkedIn"><Linkedin size={20} /></a>}
-          {('twitter' in contact) && <a href={(contact as any).twitter} aria-label="Twitter"><Twitter size={20} /></a>}
-          {contact.email && <a href={`mailto:${contact.email}`} aria-label="Email"><Mail size={20} /></a>}
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1.5rem', marginBottom: '1.25rem' }}>
+          {contact.github && (
+            <a href={contact.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}>
+              <Github size={20} />
+            </a>
+          )}
+          {contact.linkedin && (
+            <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}>
+              <Linkedin size={20} />
+            </a>
+          )}
+          {contact.googleBadges && (
+            <a href={contact.googleBadges} target="_blank" rel="noopener noreferrer" aria-label="Google Skill Badges" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}>
+              <Award size={20} />
+            </a>
+          )}
+          {contact.email && (
+            <a href={`mailto:${contact.email}`} aria-label="Email" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}>
+              <Mail size={20} />
+            </a>
+          )}
         </div>
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-          Designed & Built with ❤️ by {portfolioData.hero.name}
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
+          Designed & Built by <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{hero.name}</span> &bull; {new Date().getFullYear()}
         </p>
       </div>
     </footer>

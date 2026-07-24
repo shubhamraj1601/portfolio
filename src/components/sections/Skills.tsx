@@ -5,84 +5,62 @@ import { portfolioData } from '../../data/content';
 export default function Skills() {
   const { skills } = portfolioData;
 
-  const SkillCategory = ({ title, items, delay }: { title: string, items: string[], delay: number }) => {
-    const containerVariants = {
-      hidden: { opacity: 0, y: 30 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          duration: 0.6,
-          staggerChildren: 0.05,
-          delayChildren: delay
-        }
-      }
-    };
-
-    const itemVariants = {
-      hidden: { opacity: 0, scale: 0.8, y: 15 },
-      visible: {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        transition: {
-          type: 'spring',
-          stiffness: 120,
-          damping: 10
-        }
-      }
-    };
-
-    return (
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        className="glass"
-        style={{ padding: 'clamp(1.25rem, 4vw, 2rem)', borderRadius: 'var(--radius-md)', flex: '1 1 280px' }}
-      >
-        <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', color: 'var(--accent-primary)', textAlign: 'center' }}>
-          {title}
-        </h3>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
-          {items.map(skill => (
-            <motion.span
-              key={skill}
-              variants={itemVariants}
-              whileHover={{ 
-                scale: 1.05, 
-                borderColor: 'var(--accent-primary)',
-                color: 'var(--accent-secondary)'
-              }}
-              style={{
-                padding: '0.5rem 1rem',
-                background: 'var(--bg-secondary)',
-                border: '1px solid var(--border-color)',
-                borderRadius: 'var(--radius-sm)',
-                color: 'var(--text-primary)',
-                fontSize: '0.9rem',
-                cursor: 'default',
-                display: 'inline-block',
-                transition: 'border-color 0.2s, color 0.2s'
-              }}
-            >
-              {skill}
-            </motion.span>
-          ))}
-        </div>
-      </motion.div>
-    );
-  };
+  const categories = [
+    { title: "Cloud & Big Data Platforms", items: skills.cloudBigData },
+    { title: "Data Engineering & Data Vault", items: skills.dataEngineering },
+    { title: "Programming Languages", items: skills.programming },
+    { title: "Frameworks & Web Engineering", items: skills.frameworks },
+    { title: "DevOps, Databases & Analytics", items: skills.devOpsTools },
+    { title: "Leadership & Domain Expertise", items: skills.leadershipDomain },
+  ];
 
   return (
     <section id="skills" className="section container">
-      <SectionHeading title="Technical Skills" />
+      <SectionHeading title="Technical Skills & Competencies" subtitle="Comprehensive technology stack and engineering domains" />
       
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem' }}>
-        <SkillCategory title="Frontend Development" items={skills.frontend} delay={0.1} />
-        <SkillCategory title="Backend & Cloud" items={skills.backend} delay={0.2} />
-        <SkillCategory title="Tools & Methodologies" items={skills.tools} delay={0.3} />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: '1.75rem' }}>
+        {categories.map((cat, catIdx) => (
+          <motion.div
+            key={cat.title}
+            initial={{ opacity: 0, y: 40, scale: 0.94 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ type: 'spring', stiffness: 85, damping: 15, delay: catIdx * 0.06 }}
+            className="glass hover-lift"
+            style={{ 
+              padding: '1.5rem', 
+              borderRadius: 'var(--radius-md)', 
+              border: '1px solid var(--border-color)',
+              display: 'flex',
+              flexDirection: 'column'
+            }}
+          >
+            <h3 style={{ fontSize: '1.15rem', marginBottom: '1.25rem', color: 'var(--accent-primary)', fontWeight: 700 }}>
+              {cat.title}
+            </h3>
+            
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              {cat.items.map(skill => (
+                <span
+                  key={skill}
+                  style={{
+                    padding: '0.4rem 0.8rem',
+                    background: 'var(--bg-secondary)',
+                    border: '1px solid var(--border-color)',
+                    borderRadius: 'var(--radius-sm)',
+                    color: 'var(--text-primary)',
+                    fontSize: '0.85rem',
+                    fontWeight: 500,
+                    cursor: 'default',
+                    display: 'inline-block'
+                  }}
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
