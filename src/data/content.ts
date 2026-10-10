@@ -81,6 +81,7 @@ export const portfolioData = {
       "I build reliable, large-scale data platforms on Google Cloud — and I'm taking that foundation into AI & machine learning: ML-ready data, LLM-powered applications and intelligent agents.",
     availability: "Open to remote full-time roles & freelance work",
     avatar: "/images/avatar.jpg",
+    navAvatar: "/images/pfp-face.png",
     banner: "/images/banner.jpg",
     resumeLink: "/Shubham_Resume.pdf",
     stats: [
@@ -194,7 +195,7 @@ export const portfolioData = {
         "Designed database schemas, fact tables and stored procedures in MS SQL Server for heavy data operations.",
         "Delivered Blazor WebAssembly interfaces for a workflow projected to cut insurance claim turnaround by ~90%."
       ],
-      image: "/images/claims.png",
+      image: "/images/claims.jpg",
       technologies: ["ASP.NET Core 8", "C#", "MS SQL Server", "Blazor", "Entity Framework"]
     },
     {
@@ -206,7 +207,7 @@ export const portfolioData = {
         "Dynamic question generation based on earlier answers, plus automated PDF report generation.",
         "Flask APIs and MySQL models capture responses for downstream behavioral analysis."
       ],
-      image: "/images/yancha.png",
+      image: "/images/yancha.jpg",
       technologies: ["Python", "Flask", "MySQL", "Vue.js"],
       liveUrl: "https://www.yancha.in/"
     },
@@ -218,6 +219,7 @@ export const portfolioData = {
         "Interactive simulation that tracks a user's decisions and turns them into an analytical life report.",
         "Dashboard views in Vue 3 with persistent session analytics."
       ],
+      image: "/images/story-of-life.jpg",
       technologies: ["Vue 3", "JavaScript", "Session Analytics"]
     },
     {
@@ -228,6 +230,7 @@ export const portfolioData = {
         "Social profile-building web app with secure login/logout and cookie-based sessions.",
         "REST APIs on Node.js and Express with a MongoDB data layer."
       ],
+      image: "/images/codeial.jpg",
       technologies: ["React", "Node.js", "Express", "MongoDB", "JWT"]
     }
   ] as ProjectItem[],

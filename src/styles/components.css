@@ -26,20 +26,16 @@
 }
 
 .nav-brand { display: flex; align-items: center; gap: 0.6rem; }
-.nav-monogram {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  background: var(--accent);
-  color: var(--bg);
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.02em;
+.nav-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  object-fit: cover;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  transition: transform 0.2s ease;
 }
+.nav-brand:hover .nav-avatar { transform: rotate(-6deg) scale(1.05); }
 .nav-name { font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; color: var(--text); }
 .nav-brand:hover .nav-name { color: var(--accent); }
 
@@ -250,7 +246,7 @@
    ========================================================= */
 .about-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 260px;
+  grid-template-columns: minmax(0, 1fr) 280px;
   gap: 1.75rem;
   align-items: start;
 }
@@ -380,6 +376,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--surface);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 var(--card-highlight);
   overflow: hidden;
 }
 .job-project + .job-project { border-top: 1px dashed var(--border-strong); }
@@ -464,7 +461,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
-.skill-block { padding: 1.1rem 1.15rem 1.2rem; box-shadow: none; }
+.skill-block { padding: 1.1rem 1.15rem 1.2rem; }
 .skill-block-focus {
   grid-column: 1 / -1;
   border-color: color-mix(in srgb, var(--accent) 35%, transparent);
@@ -560,7 +557,6 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 0.85rem 1rem;
-  box-shadow: none;
   color: inherit;
 }
 a.cert-card:hover .cert-name { color: var(--accent); }
@@ -594,15 +590,18 @@ a.cert-card:hover .cert-link-icon { color: var(--accent); }
 .floating-side { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
 .floating-col {
   position: absolute;
-  top: calc(var(--nav-h) + 9vh);
+  top: calc(var(--nav-h) + 8vh);
   width: calc((100vw - var(--col)) / 2);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  overflow: hidden;
+  /* Clip sideways only, and leave vertical room for the ±8px float so pills aren't cut off */
+  overflow-x: clip;
+  overflow-y: visible;
+  padding-block: 0.75rem;
 }
-.floating-col-left { left: 0; align-items: flex-end; padding-right: 2.25rem; }
-.floating-col-right { right: 0; align-items: flex-start; padding-left: 2.25rem; top: calc(var(--nav-h) + 13vh); }
+.floating-col-left { left: 0; align-items: flex-end; padding-right: 1.5rem; }
+.floating-col-right { right: 0; align-items: flex-start; padding-left: 1.5rem; top: calc(var(--nav-h) + 12vh); }
 
 .floating-pill {
   display: inline-flex;
@@ -621,9 +620,28 @@ a.cert-card:hover .cert-link-icon { color: var(--accent); }
 .floating-pill-ai { border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
 .pill-icon { color: var(--accent); display: inline-flex; }
 
-@media (max-width: 1260px), (max-height: 560px) {
+@media (max-width: 1380px), (max-height: 600px) {
   .floating-side { display: none; }
 }
+
+/* =========================================================
+   Cursor cat (oneko)
+   ========================================================= */
+.cursor-cat {
+  display: none;               /* enabled from JS on pointer devices */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  image-rendering: pixelated;
+  background-image: url('/oneko.gif');
+  background-position: -96px -96px;
+  z-index: 2000;
+  will-change: transform;
+}
+[data-theme='dark'] .cursor-cat { filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.35)); }
 
 /* =========================================================
    Footer

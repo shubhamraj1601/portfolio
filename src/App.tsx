@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { motion, useScroll, useSpring, MotionConfig } from 'framer-motion'
 import Navbar from './components/layout/Navbar'
 import FloatingSideElements from './components/layout/FloatingSideElements'
+import CursorCat from './components/layout/CursorCat'
 import Footer from './components/layout/Footer'
 import Hero from './components/sections/Hero'
 import About from './components/sections/About'
@@ -72,6 +73,7 @@ function App() {
         <Navbar route={route} />
         <div className="rails" aria-hidden="true" />
         <FloatingSideElements />
+        <CursorCat />
         <main className="frame">
           {route === '/' && <Home />}
           {route === '/education' && <EducationPage />}

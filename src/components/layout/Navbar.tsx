@@ -101,7 +101,7 @@ export default function Navbar({ route }: NavbarProps) {
         <FrameLines top={false} />
 
         <a href="#/" className="nav-brand" aria-label="Home">
-          <span className="nav-monogram">SR</span>
+          <img className="nav-avatar" src={portfolioData.hero.navAvatar} alt="" width={32} height={32} />
           <span className="nav-name">{portfolioData.hero.name}</span>
         </a>
 
