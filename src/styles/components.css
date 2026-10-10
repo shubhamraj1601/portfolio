@@ -159,7 +159,7 @@
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  font-size: clamp(2rem, 5vw, 2.6rem);
+  font-size: clamp(1.9rem, 4.6vw, 2.45rem);
   font-weight: 800;
   letter-spacing: -0.025em;
   line-height: 1.1;
@@ -169,7 +169,7 @@
 .hero-headline {
   margin-top: 0.35rem;
   font-family: var(--font-heading);
-  font-size: clamp(1.1rem, 2.6vw, 1.35rem);
+  font-size: clamp(1.05rem, 2.4vw, 1.28rem);
   font-weight: 600;
   color: var(--accent);
 }
@@ -189,7 +189,7 @@
 .hero-tagline {
   margin-top: 1.2rem;
   max-width: 640px;
-  font-size: 1.04rem;
+  font-size: 1rem;
   line-height: 1.7;
   color: var(--text-2);
 }
@@ -225,7 +225,7 @@
 }
 .hero-stat-value {
   font-family: var(--font-heading);
-  font-size: 1.55rem;
+  font-size: 1.45rem;
   font-weight: 700;
   color: var(--text);
   letter-spacing: -0.01em;
@@ -236,9 +236,17 @@
   .hero-avatar { width: 92px; height: 92px; border-radius: 16px; }
   .hero-id-row { margin-top: -46px; }
   .hero-socials { margin-left: 0; }
+  .hero-meta { flex-direction: column; align-items: flex-start; }
+  .hero-meta-sep { display: none; }
   .hero-stats { grid-template-columns: repeat(2, 1fr); }
-  .hero-stat:nth-child(odd)::before { display: none; }
-  .hero-stat:nth-child(n + 3) { border-top: 1px dashed var(--rail); }
+  /* nth-of-type: the frame-line <span>s inside .hero-stats must not be counted */
+  .hero-stat:nth-of-type(odd)::before { display: none; }
+  .hero-stat:nth-of-type(n + 3) { border-top: 1px dashed var(--rail); }
+}
+
+@media (max-width: 400px) {
+  .availability { font-size: 0.74rem; padding: 0.3rem 0.7rem; }
+  .hero-stat-value { font-size: 1.35rem; }
 }
 
 /* =========================================================
@@ -398,7 +406,7 @@
 .job-project-head:hover { background: var(--surface-2); }
 .job-project-title { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; font-weight: 600; font-size: 0.95rem; }
 .job-project-title .chip { font-size: 0.7rem; padding: 0.1rem 0.45rem; }
-.job-project-meta { display: flex; align-items: center; gap: 0.6rem; font-size: 0.75rem; color: var(--muted); }
+.job-project-meta { display: flex; align-items: center; gap: 0.6rem; margin-left: auto; font-size: 0.75rem; color: var(--muted); }
 .chevron { transition: transform 0.2s ease; flex-shrink: 0; }
 .job-project-body { margin-top: 0; padding: 0 1rem 1rem; }
 
@@ -424,7 +432,9 @@
   object-position: top;
   transition: transform 0.4s ease;
 }
-.project:hover .project-cover img { transform: scale(1.03); }
+@media (hover: hover) {
+  .project:hover .project-cover img { transform: scale(1.03); }
+}
 .project-cover-placeholder {
   height: 100%;
   display: flex;
@@ -620,7 +630,8 @@ a.cert-card:hover .cert-link-icon { color: var(--accent); }
 .floating-pill-ai { border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
 .pill-icon { color: var(--accent); display: inline-flex; }
 
-@media (max-width: 1380px), (max-height: 600px) {
+/* Shown only when the side gutters are wide enough for the longest pill */
+@media (max-width: 1340px), (max-height: 600px) {
   .floating-side { display: none; }
 }
 

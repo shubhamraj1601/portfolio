@@ -30,7 +30,7 @@
   --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
 
-  --col: 62rem;                  /* main column width between the rails (scales with root font size) */
+  --col: 62.4rem;                /* main column width between the rails: 936px at the 15px base (scales with root font size) */
   --pad: 2rem;                   /* inner horizontal padding of the column */
   --nav-h: 3.75rem;
 
@@ -74,10 +74,15 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html {
-  font-size: 100%;
+  font-size: 93.75%;             /* 15px base: a touch smaller than the browser default for a calmer read */
   scroll-behavior: smooth;
+  /* "clip" hides the full-bleed lines' overflow without turning html/body into scroll
+     containers (which would break position: sticky); "hidden" is the fallback for old browsers */
   overflow-x: hidden;
+  overflow-x: clip;
   scroll-padding-top: calc(var(--nav-h) + 8px);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -88,13 +93,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  overflow-x: clip;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Larger screens: scale type and layout up together so the side gutters don't feel empty */
-@media (min-width: 1500px) { html { font-size: 106.25%; } }
-@media (min-width: 1800px) { html { font-size: 112.5%; } }
-@media (min-width: 2200px) { html { font-size: 125%; } }
+/* Larger screens: gently scale type and layout up together so the side gutters don't feel empty */
+@media (min-width: 1600px) { html { font-size: 96.875%; } }
+@media (min-width: 1880px) { html { font-size: 100%; } }
+@media (min-width: 2400px) { html { font-size: 106.25%; } }
 
 /* Faint dot grid in the gutters (the column covers it with a solid background) */
 body::before {
@@ -136,6 +142,7 @@ button { font: inherit; }
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: clip;
 }
 
 .frame {
@@ -199,7 +206,8 @@ button { font: inherit; }
 .corner-bl { bottom: 0; left: 0; transform: translate(-50%, 50%); }
 .corner-br { bottom: 0; right: 0; transform: translate(50%, 50%); }
 
-@media (max-width: 1010px) {
+/* Below this width the column fills the screen, so the rails would sit on the screen edges */
+@media (max-width: 980px) {
   .rails, .corner { display: none; }
 }
 
@@ -223,7 +231,7 @@ button { font: inherit; }
   margin-bottom: 0.15rem;
 }
 .section-title {
-  font-size: clamp(1.45rem, 3.2vw, 1.8rem);
+  font-size: clamp(1.4rem, 3vw, 1.7rem);
   font-weight: 700;
   letter-spacing: -0.015em;
 }
@@ -297,10 +305,13 @@ button { font: inherit; }
   box-shadow: var(--shadow-sm), inset 0 1px 0 var(--card-highlight);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
-.card-hover:hover {
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--border-strong));
-  box-shadow: var(--shadow-md), inset 0 1px 0 var(--card-highlight);
-  transform: translateY(-2px);
+/* Hover lift only on devices with a real pointer, so taps on phones don't leave cards stuck "hovered" */
+@media (hover: hover) {
+  .card-hover:hover {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border-strong));
+    box-shadow: var(--shadow-md), inset 0 1px 0 var(--card-highlight);
+    transform: translateY(-2px);
+  }
 }
 
 .status-dot {

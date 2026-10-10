@@ -69,7 +69,7 @@ export interface VolunteerItem {
 
 export const portfolioData = {
   meta: {
-    siteTitle: "Shubham Raj | Data Engineer & AI/ML Enthusiast",
+    siteTitle: "Shubham Raj | Data Engineer",
   },
 
   hero: {
