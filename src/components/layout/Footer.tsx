@@ -1,37 +1,39 @@
 import { portfolioData } from '../../data/content';
-import { Github, Linkedin, Mail, Award } from 'lucide-react';
+import { Github, Linkedin, Mail, Award, MapPin } from 'lucide-react';
+import FrameLines from '../ui/FrameLines';
 
 export default function Footer() {
   const { contact, hero } = portfolioData;
 
+  const links = [
+    { href: contact.github, label: 'GitHub', icon: <Github size={16} /> },
+    { href: contact.linkedin, label: 'LinkedIn', icon: <Linkedin size={16} /> },
+    { href: contact.googleBadges, label: 'Google Cloud skill badges', icon: <Award size={16} /> },
+    { href: `mailto:${contact.email}`, label: 'Email', icon: <Mail size={16} /> },
+  ];
+
   return (
-    <footer style={{ padding: '2.5rem 1.5rem', borderTop: '1px solid var(--border-color)', textAlign: 'center', background: 'var(--bg-primary)' }}>
-      <div className="container">
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1.5rem', marginBottom: '1.25rem' }}>
-          {contact.github && (
-            <a href={contact.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}>
-              <Github size={20} />
-            </a>
-          )}
-          {contact.linkedin && (
-            <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}>
-              <Linkedin size={20} />
-            </a>
-          )}
-          {contact.googleBadges && (
-            <a href={contact.googleBadges} target="_blank" rel="noopener noreferrer" aria-label="Google Skill Badges" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}>
-              <Award size={20} />
-            </a>
-          )}
-          {contact.email && (
-            <a href={`mailto:${contact.email}`} aria-label="Email" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}>
-              <Mail size={20} />
-            </a>
-          )}
-        </div>
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-          Designed & Built by <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{hero.name}</span> &bull; {new Date().getFullYear()}
+    <footer className="footer">
+      <FrameLines bottom={false} />
+      <div className="footer-inner">
+        <p className="footer-text">
+          © {new Date().getFullYear()} <span className="footer-name">{hero.name}</span>
+          <span className="footer-sep" aria-hidden="true">·</span>
+          <span className="footer-loc"><MapPin size={12} /> {contact.location}</span>
         </p>
+        <div className="footer-links">
+          {links.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              aria-label={l.label}
+              title={l.label}
+              {...(l.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              {l.icon}
+            </a>
+          ))}
+        </div>
       </div>
     </footer>
   );

@@ -1,85 +1,103 @@
-import { motion } from 'framer-motion';
-import SectionHeading from '../ui/SectionHeading';
-import { portfolioData, ExperienceItem } from '../../data/content';
-import { MapPin, Calendar } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, MapPin } from 'lucide-react';
+import { portfolioData, ExperienceItem, ExperienceProject } from '../../data/content';
+import Section from '../ui/Section';
+import Reveal from '../ui/Reveal';
+
+function ProjectAccordion({ projects }: { projects: ExperienceProject[] }) {
+  const [open, setOpen] = useState<Set<number>>(() => new Set([0]));
+
+  const toggle = (i: number) =>
+    setOpen((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
+
+  return (
+    <div className="job-projects">
+      {projects.map((p, i) => {
+        const isOpen = open.has(i);
+        return (
+          <div key={p.title} className={`job-project ${isOpen ? 'open' : ''}`}>
+            <button type="button" className="job-project-head" onClick={() => toggle(i)} aria-expanded={isOpen}>
+              <div className="job-project-title">
+                <span>{p.title}</span>
+                <span className="chip chip-accent">{p.domain}</span>
+              </div>
+              <div className="job-project-meta">
+                <span className="mono">{p.stack}</span>
+                <ChevronDown size={16} className={`chevron ${isOpen ? 'rotate-180' : ''}`} />
+              </div>
+            </button>
+            <AnimatePresence initial={false}>
+              {isOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.25, ease: 'easeInOut' }}
+                  style={{ overflow: 'hidden' }}
+                >
+                  <ul className="bullets job-project-body">
+                    {p.highlights.map((h) => (
+                      <li key={h}>{h}</li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function Experience() {
   const { experience } = portfolioData;
 
   return (
-    <section id="experience" className="section container">
-      <SectionHeading title="Work Experience" subtitle="Enterprise Cloud Data & Software Engineering Roles" />
-      
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', maxWidth: '900px', margin: '0 auto' }}>
+    <Section id="experience" eyebrow="02 · experience" title="Work Experience" subtitle="Building cloud data platforms for enterprise clients">
+      <div className="timeline">
         {experience.map((job: ExperienceItem, i: number) => (
-          <motion.div 
-            key={job.id}
-            initial={{ opacity: 0, y: 50, scale: 0.94 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ type: 'spring', stiffness: 85, damping: 15, delay: i * 0.08 }}
-            className="glass hover-lift"
-            style={{ 
-              padding: 'clamp(1.25rem, 4vw, 2.25rem)', 
-              borderRadius: 'var(--radius-lg)',
-              border: '1px solid var(--border-color)',
-              position: 'relative'
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '1.25rem' }}>
+          <Reveal key={job.id} delay={i * 0.05} className="job">
+            <span className={`timeline-dot ${i === 0 ? 'current' : ''}`} aria-hidden="true" />
+            <div className="job-head">
               <div>
-                <h3 style={{ fontSize: '1.35rem', color: 'var(--text-primary)', fontWeight: 700, marginBottom: '0.25rem' }}>
-                  {job.role}
-                </h3>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: '1.05rem', color: 'var(--accent-primary)', fontWeight: 600 }}>
-                    {job.company}
-                  </span>
+                <h3 className="job-role">{job.role}</h3>
+                <p className="job-company">
+                  <span>{job.company}</span>
                   {job.location && (
-                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
-                      <MapPin size={13} /> {job.location}
+                    <span className="job-location">
+                      <MapPin size={12} /> {job.location}
                     </span>
                   )}
-                </div>
+                </p>
               </div>
-              
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-muted)', fontSize: '0.85rem', background: 'var(--bg-secondary)', padding: '0.35rem 0.85rem', borderRadius: 'var(--radius-full)', border: '1px solid var(--border-color)' }}>
-                <Calendar size={13} />
-                <span>{job.duration}</span>
-              </div>
+              <span className="job-date mono">{job.duration}</span>
             </div>
 
-            {/* Bullets / Highlights */}
-            <ul style={{ listStyleType: 'disc', paddingLeft: '1.2rem', marginBottom: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-              {job.highlights.map((bullet, idx) => (
-                <li key={idx} style={{ color: 'var(--text-secondary)', fontSize: '0.96rem', lineHeight: 1.6 }}>
-                  {bullet}
-                </li>
-              ))}
-            </ul>
-            
-            {/* Tech Badges */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-              {job.technologies.map(tech => (
-                <span 
-                  key={tech}
-                  style={{
-                    padding: '0.25rem 0.75rem',
-                    background: 'var(--bg-secondary)',
-                    borderRadius: 'var(--radius-full)',
-                    fontSize: '0.78rem',
-                    fontWeight: 500,
-                    color: 'var(--accent-secondary)',
-                    border: '1px solid var(--border-color)'
-                  }}
-                >
-                  {tech}
-                </span>
+            {job.summary && <p className="job-summary">{job.summary}</p>}
+            {job.projects && <ProjectAccordion projects={job.projects} />}
+            {job.highlights && (
+              <ul className="bullets">
+                {job.highlights.map((h) => (
+                  <li key={h}>{h}</li>
+                ))}
+              </ul>
+            )}
+
+            <div className="chip-row job-tech">
+              {job.technologies.map((tech) => (
+                <span key={tech} className="chip">{tech}</span>
               ))}
             </div>
-          </motion.div>
+          </Reveal>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

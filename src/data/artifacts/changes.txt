@@ -1,0 +1,20 @@
+Here are few changes/recommendations which needs to be looked upon/ implemented :
+- I would like to have some similar borders as to what we could see in the websites present in samples.txt file.
+- Removal of full-stack developer from the headline. I would prefer something like data engineer, ai & ml enthusiast or something along the lines.
+- From the right side floating skills, I would prefer more AI terms rather than software development.
+- I want my website to show that I am trying to get into AI and ML related field and not a lot of software development however keeping the parts where it is okay.
+- From the experience menu completely remove the experience of software engineer vmax block as I do not have the experience certficate for it to prove the experience.
+- Change my Quantiphi experience to start from Jan 2023. Remove data engineer intern experience and add the those in the main quantiphi 1 block only at the top with consolidated expereince form this internship as well.
+- In featured project - remove mention of IIISLA and vmax. keep the pointers and mention it as freelance work/project.
+- Remove the equinix entire block from featured project.
+- Rename the leadership and volunteer to volunteer work only. 
+- Certifications and badges - instead of these block i would prefer vertical listing with timeline kind of thing with URLs to redirect to certificate. Keep the urls for which u can find else keep it blank. Let me know the place to modify these as well.
+- Hide certain sections from the main page. It looks way to clustered. I would like to keep only about me, experience, project, skills. Education, certification and volunteer could be a separate pages with option to navigate from the top. 
+- Top navigation bar could be modified, to have just about experience project skills and then a drop down with more written.
+- Also somewhere I would like to mention open for remote full-time work, or freelance work etc.
+- At the end along with lets build data platform and software solutions, can we add somehting with AI too as well.
+- Location tag which is at the bottom, can we accomodate that at the top after my name or something. It looks very off the place.
+- Say hello and then the mail id is written which is very weired remove the mail id in brackets.
+- After all this the tab name in browser just says portfolio, which I want to change like maybe shubham | data engineer or shubham | profile something like.
+- I have added 2 images in artifacts folder. One could be a background image and other is myself. Please consider other sample website and try to incorporate this as well. 
+- Colour theme, currently its black and violet, if possible could it be blue in some shade or some other colour. It feels very different. I would like to keep it casual or warm if I may.

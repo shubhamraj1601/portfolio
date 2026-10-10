@@ -1,205 +1,198 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, ChevronDown, GraduationCap, Award, HeartHandshake, Mail, FileText } from 'lucide-react';
+import { portfolioData } from '../../data/content';
+import FrameLines from '../ui/FrameLines';
+import type { Route } from '../../lib/router';
 
-export default function Navbar() {
+const sectionLinks = [
+  { name: 'About', id: 'about' },
+  { name: 'Experience', id: 'experience' },
+  { name: 'Projects', id: 'projects' },
+  { name: 'Skills', id: 'skills' },
+];
+
+const pageLinks = [
+  { name: 'Education', href: '#/education', route: '/education', icon: <GraduationCap size={15} /> },
+  { name: 'Certifications', href: '#/certifications', route: '/certifications', icon: <Award size={15} /> },
+  { name: 'Volunteer Work', href: '#/volunteer', route: '/volunteer', icon: <HeartHandshake size={15} /> },
+];
+
+interface NavbarProps {
+  route: Route;
+}
+
+export default function Navbar({ route }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
-  const [theme, setTheme] = useState('light');
-  const [isOpen, setIsOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [theme, setTheme] = useState(() => document.documentElement.getAttribute('data-theme') || 'light');
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const moreRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Close menus on navigation
+  useEffect(() => {
+    setMobileOpen(false);
+    setMoreOpen(false);
+  }, [route]);
+
+  // Close "More" on outside click / Escape
+  useEffect(() => {
+    if (!moreOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) setMoreOpen(false);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 992);
-      if (window.innerWidth >= 992) {
-        setIsOpen(false);
-      }
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setMoreOpen(false);
+    document.addEventListener('mousedown', onClick);
+    document.addEventListener('keydown', onKey);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('mousedown', onClick);
+      document.removeEventListener('keydown', onKey);
     };
-  }, []);
+  }, [moreOpen]);
 
+  // Highlight the section currently in view on the home page
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    setTheme(savedTheme);
-    document.documentElement.setAttribute('data-theme', savedTheme);
-  }, []);
+    if (route !== '/') {
+      setActiveSection('');
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => entry.isIntersecting && setActiveSection(entry.target.id));
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    );
+    [...sectionLinks.map((l) => l.id), 'contact'].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [route]);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('theme', next);
+    } catch {
+      /* storage unavailable — theme still applies for this visit */
+    }
   };
 
-  const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Academics', href: '#academics' },
-    { name: 'Certifications', href: '#certifications' },
-    { name: 'Leadership', href: '#leadership' },
-    { name: 'Contact', href: '#contact' },
-  ];
+  const onPage = route !== '/';
 
   return (
-    <motion.header 
-      initial={{ y: -80, opacity: 0 }}
+    <motion.header
+      className={`navbar ${scrolled || mobileOpen ? 'navbar-scrolled' : ''}`}
+      initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-        padding: isMobile ? '0.75rem 1rem' : '1rem 2rem',
-        background: scrolled || isOpen ? 'var(--bg-glass)' : 'transparent',
-        backdropFilter: scrolled || isOpen ? 'blur(16px)' : 'none',
-        WebkitBackdropFilter: scrolled || isOpen ? 'blur(16px)' : 'none',
-        borderBottom: scrolled || isOpen ? '1px solid var(--border-color)' : '1px solid transparent',
-        transition: 'background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease'
-      }}
+      transition={{ duration: 0.35, ease: 'easeOut' }}
     >
-      <nav className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <a href="#" style={{ fontSize: '1.4rem', fontWeight: 800, fontFamily: 'var(--font-heading)', display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-          <span className="gradient-text-accent">Shubham</span>
-          <span style={{ color: 'var(--text-primary)' }}>Raj</span>
-        </a>
-        
-        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '0.5rem' : '1.5rem' }}>
-          {!isMobile && (
-            <ul style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
-              {navLinks.map((link) => (
-                <li key={link.name}>
-                  <a 
-                    href={link.href} 
-                    style={{ 
-                      fontSize: '0.88rem', 
-                      fontWeight: 600, 
-                      color: 'var(--text-secondary)',
-                      padding: '0.35rem 0.6rem',
-                      borderRadius: 'var(--radius-sm)',
-                      transition: 'color 0.2s'
-                    }}
-                    onMouseOver={(e) => {
-                      e.currentTarget.style.color = 'var(--accent-primary)';
-                    }}
-                    onMouseOut={(e) => {
-                      e.currentTarget.style.color = 'var(--text-secondary)';
-                    }}
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
-          
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.92 }}
-            onClick={toggleTheme}
-            aria-label="Toggle Theme"
-            style={{
-              background: 'var(--bg-secondary)',
-              border: '1px solid var(--border-color)',
-              color: 'var(--text-primary)',
-              cursor: 'pointer',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '38px',
-              height: '38px',
-              boxShadow: 'var(--shadow-subtle)'
-            }}
-          >
-            {theme === 'dark' ? <Sun size={18} style={{ color: '#fbbf24' }} /> : <Moon size={18} style={{ color: 'var(--accent-primary)' }} />}
-          </motion.button>
+      <nav className="nav-inner" aria-label="Main">
+        <FrameLines top={false} />
 
-          {isMobile && (
-            <motion.button
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.92 }}
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle Menu"
-              style={{
-                background: 'var(--bg-secondary)',
-                border: '1px solid var(--border-color)',
-                color: 'var(--text-primary)',
-                cursor: 'pointer',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '38px',
-                height: '38px'
-              }}
-            >
-              {isOpen ? <X size={18} /> : <Menu size={18} />}
-            </motion.button>
-          )}
+        <a href="#/" className="nav-brand" aria-label="Home">
+          <span className="nav-monogram">SR</span>
+          <span className="nav-name">{portfolioData.hero.name}</span>
+        </a>
+
+        <div className="nav-right">
+          <ul className="nav-links">
+            {sectionLinks.map((link) => (
+              <li key={link.id}>
+                <a href={`#${link.id}`} className={`nav-link ${activeSection === link.id ? 'active' : ''}`}>
+                  {link.name}
+                </a>
+              </li>
+            ))}
+            <li className="nav-more" ref={moreRef}>
+              <button
+                type="button"
+                className={`nav-link nav-more-btn ${onPage ? 'active' : ''}`}
+                aria-haspopup="true"
+                aria-expanded={moreOpen}
+                onClick={() => setMoreOpen((o) => !o)}
+              >
+                More <ChevronDown size={14} className={moreOpen ? 'rotate-180' : ''} />
+              </button>
+              <AnimatePresence>
+                {moreOpen && (
+                  <motion.div
+                    className="dropdown card"
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    {pageLinks.map((p) => (
+                      <a key={p.href} href={p.href} className={`dropdown-item ${route === p.route ? 'active' : ''}`}>
+                        {p.icon} {p.name}
+                      </a>
+                    ))}
+                    <div className="dropdown-sep" />
+                    <a href="#contact" className="dropdown-item">
+                      <Mail size={15} /> Contact
+                    </a>
+                    <a href={portfolioData.hero.resumeLink} target="_blank" rel="noopener noreferrer" className="dropdown-item">
+                      <FileText size={15} /> Resume
+                    </a>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </li>
+          </ul>
+
+          <button type="button" className="icon-btn" onClick={toggleTheme} aria-label="Toggle theme">
+            {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+          </button>
+
+          <button
+            type="button"
+            className="icon-btn nav-burger"
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </div>
       </nav>
 
       <AnimatePresence>
-        {isMobile && isOpen && (
+        {mobileOpen && (
           <motion.div
+            className="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            style={{
-              position: 'absolute',
-              top: '100%',
-              left: 0,
-              right: 0,
-              background: 'var(--bg-glass)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              borderBottom: '1px solid var(--border-color)',
-              overflow: 'hidden',
-              zIndex: 99
-            }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
           >
-            <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: '1.25rem' }}>
-              {navLinks.map((link) => (
-                <li key={link.name}>
-                  <a 
-                    href={link.href} 
-                    onClick={() => setIsOpen(false)}
-                    style={{ 
-                      fontSize: '1rem', 
-                      fontWeight: 600, 
-                      color: 'var(--text-secondary)',
-                      display: 'block',
-                      transition: 'color 0.2s',
-                      padding: '0.6rem 0.75rem',
-                      borderRadius: 'var(--radius-sm)'
-                    }}
-                    onMouseOver={(e) => {
-                      e.currentTarget.style.color = 'var(--accent-primary)';
-                    }}
-                    onMouseOut={(e) => {
-                      e.currentTarget.style.color = 'var(--text-secondary)';
-                    }}
-                  >
-                    {link.name}
+            <ul>
+              {sectionLinks.map((link) => (
+                <li key={link.id}>
+                  <a href={`#${link.id}`} onClick={() => setMobileOpen(false)}>{link.name}</a>
+                </li>
+              ))}
+              <li className="mobile-menu-label mono">more</li>
+              {pageLinks.map((p) => (
+                <li key={p.href}>
+                  <a href={p.href} onClick={() => setMobileOpen(false)} className={route === p.route ? 'active' : ''}>
+                    {p.icon} {p.name}
                   </a>
                 </li>
               ))}
+              <li>
+                <a href="#contact" onClick={() => setMobileOpen(false)}><Mail size={15} /> Contact</a>
+              </li>
             </ul>
           </motion.div>
         )}
