@@ -13,7 +13,7 @@ export default function PageShell({ eyebrow, title, subtitle, children }: PageSh
   return (
     <div className="page">
       <div className="page-back">
-        <a href="#/" className="page-back-link">
+        <a href="/" className="page-back-link">
           <ArrowLeft size={15} /> Back to home
         </a>
       </div>

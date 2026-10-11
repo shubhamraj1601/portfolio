@@ -75,7 +75,7 @@ export const portfolioData = {
   hero: {
     name: "Shubham Raj",
     headline: "Data Engineer · AI & ML Enthusiast",
-    location: "Mumbai, India",
+    location: "Mumbai, India · Open to relocate",
     certification: "Google Cloud Certified Professional Data Engineer",
     tagline:
       "I build reliable, large-scale data platforms on Google Cloud — and I'm taking that foundation into AI & machine learning: ML-ready data, LLM-powered applications and intelligent agents.",
@@ -85,7 +85,7 @@ export const portfolioData = {
     banner: "/images/banner.jpg",
     resumeLink: "/Shubham_Resume.pdf",
     stats: [
-      { value: "3+ yrs", label: "Data engineering on GCP" },
+      { value: "3.5+ yrs", label: "Data engineering on GCP" },
       { value: "1,300+", label: "Enterprise tables migrated" },
       { value: "98%", label: "Faster query runtimes" },
       { value: "150+", label: "Airflow DAGs orchestrated" }
@@ -94,8 +94,8 @@ export const portfolioData = {
 
   about: {
     paragraphs: [
-      "I'm a Data Engineer with 3+ years of experience designing and modernizing enterprise-scale data platforms on Google Cloud. I've migrated thousands of tables off legacy systems, modeled analytics-ready Data Vaults with dbt, orchestrated hundreds of Airflow pipelines and tuned SQL from hours down to minutes — across healthcare, insurance, finance and data-center domains.",
-      "Good AI starts with good data, and that's where my career is heading. I'm pursuing an M.Tech in Artificial Intelligence & Machine Learning at BITS Pilani, and building hands-on with Vertex AI, BigQuery ML, vector search and Google's Agent Development Kit — turning clean, well-modeled data into ML features, LLM-powered apps and AI agents.",
+      "I'm a Data Engineer with 3.5+ years of experience designing and modernizing enterprise-scale data platforms on Google Cloud. I've migrated thousands of tables off legacy systems, modeled analytics-ready Data Vaults with dbt, orchestrated hundreds of Airflow pipelines and tuned SQL from hours down to minutes — across healthcare, insurance, finance and data-center domains.",
+      "Good AI starts with good data, and that's where my career is heading. I'm pursuing an M.Tech in Artificial Intelligence & Machine Learning at BITS Pilani, hold Google Cloud's Gemini Enterprise Agent Development certification, and build hands-on with Vertex AI, BigQuery ML, vector search and Google's Agent Development Kit — turning clean, well-modeled data into ML features, LLM-powered apps and AI agents.",
       "Earlier in my career I worked across the stack — APIs, databases and frontends — which still helps me ship things end to end. I'm open to remote full-time roles and freelance projects in data engineering, ML engineering and applied AI."
     ],
     currently: [
@@ -120,10 +120,10 @@ export const portfolioData = {
           domain: "Data Center",
           stack: "GCP · dbt · Data Vault",
           highlights: [
-            "Migrated 1,300+ enterprise tables, built 200+ business views and delivered 400+ Tableau reports by integrating Oracle, Exasol, DB2 and other sources into BigQuery.",
+            "Migrated 1,300+ enterprise tables from Oracle, Exasol, DB2 and other sources into BigQuery, building 200+ business views and delivering 400+ Tableau reports within committed program milestones.",
             "Led a team of data engineers — planning deliverables, reviewing code, resolving blockers and coordinating parallel development across multiple data models.",
             "Designed Data Vault (Raw, Business, Gold) models in dbt for a scalable, analytics-ready architecture.",
-            "Built multi-stage validation and reconciliation logic for enterprise revenue reporting, ensuring 100% data accuracy."
+            "Developed complex SQL views for enterprise revenue reporting with multi-stage validation and reconciliation logic, ensuring 100% data accuracy and consistent financial reporting."
           ]
         },
         {
@@ -131,9 +131,9 @@ export const portfolioData = {
           domain: "Insurance",
           stack: "BigQuery · PySpark",
           highlights: [
-            "Converted Mainframe (COBOL) programs into optimized BigQuery SQL, migrating billions of records across 30+ enterprise processes with 100% reconciliation accuracy.",
-            "Built scalable PySpark transformation frameworks on Dataproc Serverless for distributed processing of high-volume datasets.",
-            "Tuned Spark workloads with partitioning strategies and query optimization, improving performance and cutting execution costs by 25%."
+            "Converted Mainframe (COBOL) programs into optimized BigQuery SQL, migrating billions of records across 30+ enterprise processes with zero reconciliation mismatches.",
+            "Built scalable PySpark transformation frameworks on Dataproc Serverless to process high-volume datasets at scale, reducing manual intervention.",
+            "Tuned Spark workloads with partitioning strategies, query tuning and efficient transformations, cutting execution costs and improving performance by 25%."
           ]
         },
         {
@@ -141,9 +141,9 @@ export const portfolioData = {
           domain: "Healthcare",
           stack: "BigQuery · Apache Airflow",
           highlights: [
-            "Built and operated Airflow (Cloud Composer) ETL pipelines migrating data from Teradata to BigQuery.",
-            "Reduced a critical SQL transformation from 12+ hours to under 10 minutes through query tuning and execution-plan optimization.",
-            "Implemented centralized monitoring and alerting for 150–200 DAGs across 10–15 business teams, improving SLA compliance."
+            "Owned the end-to-end migration of an enterprise process from Teradata to BigQuery, building and operating 15 Airflow (Cloud Composer) DAGs from development through production.",
+            "Cut a complex SQL workload's runtime from 12+ hours to under 10 minutes through query tuning and execution-plan analysis.",
+            "Implemented a centralized Airflow monitoring and alerting framework for 150–200 DAGs across 10–15 business teams, automating failure notifications and improving SLA compliance."
           ]
         },
         {
@@ -151,9 +151,10 @@ export const portfolioData = {
           domain: "Finance",
           stack: "Snowflake → BigQuery",
           highlights: [
-            "Built and deployed end-to-end migration pipelines from Snowflake to BigQuery using Informatica IICS.",
+            "Built end-to-end pipelines using Informatica IICS to migrate enterprise datasets from Snowflake to BigQuery.",
             "Automated data transfers with Python ETL scripts and Cloud Functions, processing 1M+ rows of diverse data files.",
-            "Validated production readiness through SQL reconciliation and functional testing across Dev and QA, and built Tableau dashboards for post-migration analytics."
+            "Validated migrated datasets through SQL reconciliation, query optimization and functional testing across Dev and QA environments, ensuring production readiness.",
+            "Built Tableau dashboards on migrated data, translating stakeholder requirements into post-migration analytics and reporting."
           ]
         }
       ],
@@ -271,7 +272,7 @@ export const portfolioData = {
       icon: "tools",
       items: [
         "Teradata", "Exasol", "DB2", "MySQL", "MS SQL Server",
-        "Tableau", "Informatica IICS", "Git & GitHub Actions", "CI/CD"
+        "Tableau", "Informatica IICS", "Git & GitHub Actions", "Bitbucket", "CI/CD"
       ]
     },
     {
@@ -318,6 +319,14 @@ export const portfolioData = {
   // Ordered newest first. To add/edit a certificate, change an entry below.
   certifications: [
     {
+      id: 13,
+      name: "Google Cloud Certified — Specialist: Gemini Enterprise Agent Development",
+      issuer: "Google Cloud",
+      date: "2026",
+      link: "https://drive.google.com/file/d/1LIvB1rhx8-7rCRcAu4jSbRnjTG6VlMRd/view?usp=sharing",
+      tags: ["AI"]
+    },
+    {
       id: 1,
       name: "AI Agents with Agent Development Kit (ADK) — Skill Badges",
       issuer: "Google Cloud",
@@ -349,7 +358,7 @@ export const portfolioData = {
       issuer: "Google Cloud",
       date: "Dec 2024",
       credentialId: "27b328d7cad04a7cad547c3997276c84",
-      link: "https://drive.google.com/file/d/1C5UUnTtIAcMRFOdA44tZmAnAS3tjJ3Z9/view?usp=drivesdk"
+      link: "https://drive.google.com/file/d/1BBH0qm9s1HqPzkdtESV_Jw1zMADBdmh0/view?usp=sharing"
     },
     {
       id: 5,
@@ -391,7 +400,7 @@ export const portfolioData = {
       issuer: "Google Cloud",
       date: "May 2023",
       credentialId: "5356308cf4bb441abd9028cf46bcf3c5",
-      link: "https://drive.google.com/file/d/1_peCe0zwCYnYiLYUoWE_Hi2DA28ufs8m/view?usp=drivesdk"
+      link: "https://drive.google.com/file/d/1CB3K4Xnfb6p9d64FKbLLRsBKe9Vt4Cyo/view?usp=sharing"
     },
     {
       id: 10,

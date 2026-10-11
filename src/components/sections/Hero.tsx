@@ -57,7 +57,7 @@ export default function Hero() {
         </motion.p>
 
         <motion.div className="hero-actions" {...fadeUp(0.3)}>
-          <a href="#contact" className="btn btn-primary">
+          <a href="/#contact" className="btn btn-primary">
             Get in touch <ArrowRight size={16} />
           </a>
           <a href={hero.resumeLink} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">

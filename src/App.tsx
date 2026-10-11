@@ -14,7 +14,7 @@ import EducationPage from './components/pages/EducationPage'
 import CertificationsPage from './components/pages/CertificationsPage'
 import VolunteerPage from './components/pages/VolunteerPage'
 import { portfolioData } from './data/content'
-import { useHash, routeFromHash, Route } from './lib/router'
+import { useLocation, scrollToHash, interceptLinkClicks, Route } from './lib/router'
 
 const pageTitles: Record<Route, string> = {
   '/': portfolioData.meta.siteTitle,
@@ -37,14 +37,13 @@ function Home() {
 }
 
 function App() {
-  const hash = useHash();
-  const route = routeFromHash(hash);
+  const { route, hash } = useLocation();
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   const glowRef = useRef<HTMLDivElement>(null);
-  const prevHash = useRef<string | null>(null);
+  const prevLocation = useRef<string | null>(null);
 
   // Set the glow position on the glow element only, so mouse moves don't restyle the whole page
   useEffect(() => {
@@ -60,22 +59,23 @@ function App() {
     document.title = pageTitles[route];
   }, [route]);
 
-  // Page routes ("#/...") start at the top; section anchors ("#about") scroll once the home page has rendered.
+  useEffect(() => interceptLinkClicks(), []);
+
+  // Pages ("/education") start at the top; section anchors ("#about") scroll once the home page has rendered,
+  // and going back to plain "/" on the home page scrolls up to the top.
   // On first load, leave the position to the browser (so a reload keeps your place) unless a section was linked.
   useEffect(() => {
-    const isSection = hash.length > 1 && !hash.startsWith('#/');
-    const isInitial = prevHash.current === null || prevHash.current === hash;
-    prevHash.current = hash;
-    if (isInitial) {
-      if (isSection) document.getElementById(hash.slice(1))?.scrollIntoView();
+    const current = route + hash;
+    const prev = prevLocation.current;
+    prevLocation.current = current;
+    if (prev === null || prev === current) {
+      if (hash) scrollToHash(hash, 'auto');
       return;
     }
-    if (isSection) {
-      document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }
-  }, [hash]);
+    const sameRoute = prev.split('#')[0] === route;
+    if (hash || sameRoute) scrollToHash(hash, 'smooth');
+    else window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [route, hash]);
 
   return (
     <MotionConfig reducedMotion="user">

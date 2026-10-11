@@ -13,9 +13,9 @@ const sectionLinks = [
 ];
 
 const pageLinks = [
-  { name: 'Education', href: '#/education', route: '/education', icon: <GraduationCap size={15} /> },
-  { name: 'Certifications', href: '#/certifications', route: '/certifications', icon: <Award size={15} /> },
-  { name: 'Volunteer Work', href: '#/volunteer', route: '/volunteer', icon: <HeartHandshake size={15} /> },
+  { name: 'Education', href: '/education', route: '/education', icon: <GraduationCap size={15} /> },
+  { name: 'Certifications', href: '/certifications', route: '/certifications', icon: <Award size={15} /> },
+  { name: 'Volunteer Work', href: '/volunteer', route: '/volunteer', icon: <HeartHandshake size={15} /> },
 ];
 
 interface NavbarProps {
@@ -70,7 +70,7 @@ export default function Navbar({ route }: NavbarProps) {
       },
       { rootMargin: '-45% 0px -50% 0px' }
     );
-    [...sectionLinks.map((l) => l.id), 'contact'].forEach((id) => {
+    ['top', ...sectionLinks.map((l) => l.id), 'contact'].forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
@@ -89,6 +89,7 @@ export default function Navbar({ route }: NavbarProps) {
   };
 
   const onPage = route !== '/';
+  const atTop = !onPage && (activeSection === '' || activeSection === 'top');
 
   return (
     <motion.header
@@ -100,16 +101,19 @@ export default function Navbar({ route }: NavbarProps) {
       <nav className="nav-inner" aria-label="Main">
         <FrameLines top={false} />
 
-        <a href="#/" className="nav-brand" aria-label="Home">
+        <a href="/" className="nav-brand" aria-label="Home">
           <img className="nav-avatar" src={portfolioData.hero.navAvatar} alt="" width={32} height={32} />
           <span className="nav-name">{portfolioData.hero.name}</span>
         </a>
 
         <div className="nav-right">
           <ul className="nav-links">
+            <li>
+              <a href="/" className={`nav-link ${atTop ? 'active' : ''}`}>Home</a>
+            </li>
             {sectionLinks.map((link) => (
               <li key={link.id}>
-                <a href={`#${link.id}`} className={`nav-link ${activeSection === link.id ? 'active' : ''}`}>
+                <a href={`/#${link.id}`} className={`nav-link ${activeSection === link.id ? 'active' : ''}`}>
                   {link.name}
                 </a>
               </li>
@@ -134,12 +138,12 @@ export default function Navbar({ route }: NavbarProps) {
                     transition={{ duration: 0.15 }}
                   >
                     {pageLinks.map((p) => (
-                      <a key={p.href} href={p.href} className={`dropdown-item ${route === p.route ? 'active' : ''}`}>
+                      <a key={p.href} href={p.href} onClick={() => setMoreOpen(false)} className={`dropdown-item ${route === p.route ? 'active' : ''}`}>
                         {p.icon} {p.name}
                       </a>
                     ))}
                     <div className="dropdown-sep" />
-                    <a href="#contact" className="dropdown-item">
+                    <a href="/#contact" onClick={() => setMoreOpen(false)} className="dropdown-item">
                       <Mail size={15} /> Contact
                     </a>
                     <a href={portfolioData.hero.resumeLink} target="_blank" rel="noopener noreferrer" className="dropdown-item">
@@ -177,9 +181,12 @@ export default function Navbar({ route }: NavbarProps) {
             transition={{ duration: 0.25, ease: 'easeInOut' }}
           >
             <ul>
+              <li>
+                <a href="/" onClick={() => setMobileOpen(false)}>Home</a>
+              </li>
               {sectionLinks.map((link) => (
                 <li key={link.id}>
-                  <a href={`#${link.id}`} onClick={() => setMobileOpen(false)}>{link.name}</a>
+                  <a href={`/#${link.id}`} onClick={() => setMobileOpen(false)}>{link.name}</a>
                 </li>
               ))}
               <li className="mobile-menu-label mono">more</li>
@@ -191,7 +198,7 @@ export default function Navbar({ route }: NavbarProps) {
                 </li>
               ))}
               <li>
-                <a href="#contact" onClick={() => setMobileOpen(false)}><Mail size={15} /> Contact</a>
+                <a href="/#contact" onClick={() => setMobileOpen(false)}><Mail size={15} /> Contact</a>
               </li>
             </ul>
           </motion.div>
