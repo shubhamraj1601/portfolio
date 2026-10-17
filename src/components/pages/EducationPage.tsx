@@ -25,6 +25,11 @@ export default function EducationPage() {
               <span className="job-date mono">{edu.duration}</span>
             </div>
             <p className="job-summary">{edu.description}</p>
+            {edu.coursework && (
+              <p className="edu-coursework">
+                <span className="mono">Coursework:</span> {edu.coursework.join(', ')}
+              </p>
+            )}
           </Reveal>
         ))}
       </div>

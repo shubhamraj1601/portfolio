@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon, ChevronDown, GraduationCap, Award, HeartHandshake, Mail, FileText } from 'lucide-react';
+import { Menu, X, Sun, Moon, ChevronDown, GraduationCap, Award, HeartHandshake, Mail, FileText, ScrollText } from 'lucide-react';
 import { portfolioData } from '../../data/content';
 import FrameLines from '../ui/FrameLines';
 import type { Route } from '../../lib/router';
@@ -148,6 +148,9 @@ export default function Navbar({ route }: NavbarProps) {
                     </a>
                     <a href={portfolioData.hero.resumeLink} target="_blank" rel="noopener noreferrer" className="dropdown-item">
                       <FileText size={15} /> Resume
+                    </a>
+                    <a href={portfolioData.hero.cvLink} target="_blank" rel="noopener noreferrer" className="dropdown-item">
+                      <ScrollText size={15} /> CV
                     </a>
                   </motion.div>
                 )}

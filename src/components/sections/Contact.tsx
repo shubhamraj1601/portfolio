@@ -1,5 +1,5 @@
 import { portfolioData } from '../../data/content';
-import { Mail, Linkedin, Github, FileText } from 'lucide-react';
+import { Mail, Linkedin, Github, FileText, ScrollText } from 'lucide-react';
 import Section from '../ui/Section';
 import Reveal from '../ui/Reveal';
 
@@ -31,6 +31,9 @@ export default function Contact() {
           </a>
           <a href={hero.resumeLink} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
             <FileText size={16} /> Resume
+          </a>
+          <a href={hero.cvLink} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+            <ScrollText size={16} /> CV
           </a>
         </div>
       </Reveal>

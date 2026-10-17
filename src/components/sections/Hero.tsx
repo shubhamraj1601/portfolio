@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { portfolioData } from '../../data/content';
-import { ArrowRight, FileText, MapPin, BadgeCheck, Github, Linkedin, Mail, Award } from 'lucide-react';
+import { ArrowRight, FileText, ScrollText, MapPin, BadgeCheck, Github, Linkedin, Mail, Award } from 'lucide-react';
 import FrameLines from '../ui/FrameLines';
+import GoogleIcon from '../ui/GoogleIcon';
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 14 },
@@ -14,8 +15,8 @@ export default function Hero() {
 
   const socials = [
     { href: contact.github, label: 'GitHub', icon: <Github size={17} /> },
+    { href: contact.googleBadges, label: 'Google Cloud credentials & skill badges', icon: <GoogleIcon size={17} /> },
     { href: contact.linkedin, label: 'LinkedIn', icon: <Linkedin size={17} /> },
-    { href: contact.googleBadges, label: 'Google Cloud skill badges', icon: <Award size={17} /> },
     { href: `mailto:${contact.email}`, label: 'Email', icon: <Mail size={17} /> },
   ];
 
@@ -62,6 +63,9 @@ export default function Hero() {
           </a>
           <a href={hero.resumeLink} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
             <FileText size={16} /> Resume
+          </a>
+          <a href={hero.cvLink} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+            <ScrollText size={16} /> CV
           </a>
           <div className="hero-socials">
             {socials.map((s) => (

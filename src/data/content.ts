@@ -26,6 +26,10 @@ export interface ProjectItem {
   id: number;
   title: string;
   subtitle?: string;
+  summary?: string;      // one-liner shown above the bullet points
+  status?: string;       // e.g. "In progress · Oct 2026" — shown as a badge next to the title
+  featured?: boolean;    // spans the full grid width
+  diagram?: 'plasma-pipeline'; // inline SVG diagram used as the cover instead of an image
   description: string[];
   image?: string;
   technologies: string[];
@@ -37,6 +41,7 @@ export interface SkillCategory {
   title: string;
   icon: 'ai' | 'data' | 'cloud' | 'code' | 'tools' | 'web';
   note?: string;
+  link?: { label: string; href: string };  // shown next to the group title
   items: string[];
 }
 
@@ -46,6 +51,7 @@ export interface AcademicItem {
   institution: string;
   duration: string;
   description: string;
+  coursework?: string[];
   current?: boolean;
 }
 
@@ -84,6 +90,7 @@ export const portfolioData = {
     navAvatar: "/images/pfp-face.png",
     banner: "/images/banner.jpg",
     resumeLink: "/Shubham_Resume.pdf",
+    cvLink: "/Shubham_CV.pdf",
     stats: [
       { value: "3.5+ yrs", label: "Data engineering on GCP" },
       { value: "1,300+", label: "Enterprise tables migrated" },
@@ -101,6 +108,7 @@ export const portfolioData = {
     currently: [
       { label: "Working", text: "Data Engineer at Quantiphi" },
       { label: "Studying", text: "M.Tech in AI & ML at BITS Pilani" },
+      { label: "Building", text: "Plasma-AI — a real-time ML data pipeline for a plasma reactor (M.Tech research)" },
       { label: "Exploring", text: "AI agents (Google ADK), RAG & vector search, BigQuery ML" }
     ]
   },
@@ -188,6 +196,23 @@ export const portfolioData = {
 
   projects: [
     {
+      id: 5,
+      title: "Plasma-AI",
+      subtitle: "Research Project · BITS Pilani",
+      summary: "Real-time ML data pipeline for a plasma reactor (M.Tech research, industry-sponsored).",
+      status: "In progress · Oct 2026",
+      featured: true,
+      diagram: "plasma-pipeline",
+      description: [
+        "Building a GCP streaming pipeline (Pub/Sub → Dataflow → BigQuery) for a microwave plasma reactor that splits methane into hydrogen and solid carbon; it will feed a CNN-LSTM model that estimates plasma state from 1 kHz optical emission spectra and 10 Hz sensor data.",
+        "Wrote a seeded synthetic data generator that produces labelled reactor runs, with ground-truth plasma-state labels and realistic noise, sensor drift, dropouts, publish delays and missing messages, so the pipeline can be built before real reactor data arrives.",
+        "Defined a versioned JSON Schema message contract with dead-letter routing, covered by 138 pytest tests (schemas, reproducibility, disturbances, Pub/Sub publishing on the local emulator).",
+        "Scripted idempotent GCP provisioning (APIs, service accounts, IAM roles, budget alerts) in PowerShell and gcloud, with dry-run, check and teardown modes."
+      ],
+      technologies: ["Python", "Pub/Sub", "Dataflow (Apache Beam)", "BigQuery", "Cloud Storage", "pytest"],
+      githubUrl: "https://github.com/shubhamraj1601/Plasma-AI"
+    },
+    {
       id: 1,
       title: "Claims Automation Platform",
       subtitle: "Freelance Project",
@@ -238,28 +263,33 @@ export const portfolioData = {
 
   skills: [
     {
-      title: "AI & Machine Learning",
+      title: "ML & AI",
       icon: "ai",
       note: "Current focus",
+      link: {
+        label: "Google Cloud credentials",
+        href: "https://partner.skills.google/public_profiles/d414ca52-79f4-4db1-b315-fe4ff09d582a"
+      },
       items: [
-        "Generative AI", "LLMs & Prompt Design", "Vertex AI & Gemini", "AI Agents (Google ADK)",
-        "Vector Search & Embeddings", "BigQuery ML", "Feature Engineering", "Responsible AI"
+        "Vertex AI & Gemini", "ADK / AI Agents", "RAG", "Vector Search & Embeddings",
+        "scikit-learn", "Feature Engineering", "BigQuery ML", "Generative AI & LLMs",
+        "Prompt Design", "Responsible AI"
       ]
     },
     {
       title: "Data Engineering",
       icon: "data",
       items: [
-        "ETL / ELT Pipelines", "Data Modeling (Data Vault)", "dbt", "Apache Airflow",
-        "PySpark / Spark", "Data Migration", "Data Quality & Reconciliation", "SQL Optimization"
+        "ETL / ELT Pipelines", "Streaming Pipelines", "Data Modeling (Data Vault)", "dbt", "Apache Airflow",
+        "PySpark / Spark", "Data Migration", "Data Contracts (JSON Schema)", "Data Quality & Reconciliation", "SQL Optimization"
       ]
     },
     {
       title: "Cloud & Big Data",
       icon: "cloud",
       items: [
-        "Google Cloud Platform", "BigQuery", "Cloud Composer", "Dataproc Serverless",
-        "Cloud Run", "Cloud Storage", "Dataflow", "Snowflake"
+        "Google Cloud Platform", "BigQuery", "Pub/Sub", "Dataflow (Apache Beam)", "Cloud Composer",
+        "Dataproc Serverless", "Cloud Run", "Cloud Storage", "Snowflake"
       ]
     },
     {
@@ -272,7 +302,7 @@ export const portfolioData = {
       icon: "tools",
       items: [
         "Teradata", "Exasol", "DB2", "MySQL", "MS SQL Server",
-        "Tableau", "Informatica IICS", "Git & GitHub Actions", "Bitbucket", "CI/CD"
+        "Tableau", "Informatica IICS", "pytest", "Git & GitHub Actions", "Bitbucket", "CI/CD"
       ]
     },
     {
@@ -291,6 +321,7 @@ export const portfolioData = {
       institution: "BITS Pilani (Work Integrated Learning Programme)",
       duration: "Jul 2026 – Jun 2028 (expected)",
       description: "Advanced coursework in machine learning, deep neural networks, AI system design and intelligent data processing, pursued alongside full-time work.",
+      coursework: ["Machine Learning", "Deep Learning", "Mathematical Foundations for ML", "Statistics"],
       current: true
     },
     {

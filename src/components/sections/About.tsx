@@ -1,9 +1,9 @@
 import { portfolioData } from '../../data/content';
-import { Briefcase, GraduationCap, Sparkles } from 'lucide-react';
+import { Briefcase, GraduationCap, FlaskConical, Sparkles } from 'lucide-react';
 import Section from '../ui/Section';
 import Reveal from '../ui/Reveal';
 
-const currentlyIcons = [<Briefcase size={15} />, <GraduationCap size={15} />, <Sparkles size={15} />];
+const currentlyIcons = [<Briefcase size={15} />, <GraduationCap size={15} />, <FlaskConical size={15} />, <Sparkles size={15} />];
 
 export default function About() {
   const { about } = portfolioData;

@@ -1,18 +1,21 @@
 import { motion } from 'framer-motion';
 import {
-  Database, Workflow, Layers, Terminal, Cloud, Zap, GitBranch, Boxes,
+  Database, Workflow, Layers, Terminal, Cloud, Zap, GitBranch, Boxes, Radio, Waves, FlaskConical,
   Sparkles, BrainCircuit, Bot, MessageSquareText, Network, Search, LineChart, Cpu, ShieldCheck,
 } from 'lucide-react';
 
 // Left: data engineering foundation. Right: AI & ML focus.
 const leftItems = [
   { icon: <Database size={13} />, text: 'BigQuery' },
+  { icon: <Radio size={13} />, text: 'Pub/Sub Streaming' },
+  { icon: <Waves size={13} />, text: 'Dataflow · Apache Beam' },
   { icon: <Workflow size={13} />, text: 'Apache Airflow' },
   { icon: <Layers size={13} />, text: 'dbt & Data Vault' },
   { icon: <Zap size={13} />, text: 'PySpark' },
   { icon: <Terminal size={13} />, text: 'Python & SQL' },
   { icon: <Cloud size={13} />, text: 'Dataproc Serverless' },
   { icon: <Boxes size={13} />, text: 'ETL / ELT' },
+  { icon: <FlaskConical size={13} />, text: 'pytest' },
   { icon: <GitBranch size={13} />, text: 'CI/CD Pipelines' },
 ];
 

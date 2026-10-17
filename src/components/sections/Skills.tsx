@@ -1,8 +1,9 @@
 import type { ReactNode } from 'react';
-import { BrainCircuit, Workflow, Cloud, Terminal, Database, Code2 } from 'lucide-react';
+import { BrainCircuit, Workflow, Cloud, Terminal, Database, Code2, ArrowUpRight } from 'lucide-react';
 import { portfolioData, SkillCategory } from '../../data/content';
 import Section from '../ui/Section';
 import Reveal from '../ui/Reveal';
+import GoogleIcon from '../ui/GoogleIcon';
 
 const icons: Record<SkillCategory['icon'], ReactNode> = {
   ai: <BrainCircuit size={18} />,
@@ -24,7 +25,16 @@ export default function Skills() {
             <div className="skill-block-head">
               <span className="skill-icon">{icons[cat.icon]}</span>
               <h3>{cat.title}</h3>
-              {cat.note && <span className="chip chip-accent skill-note">{cat.note}</span>}
+              {(cat.note || cat.link) && (
+                <div className="skill-head-aside">
+                  {cat.note && <span className="chip chip-accent skill-note">{cat.note}</span>}
+                  {cat.link && (
+                    <a href={cat.link.href} target="_blank" rel="noopener noreferrer" className="skill-link">
+                      <GoogleIcon size={14} /> {cat.link.label} <ArrowUpRight size={13} />
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
             <div className="chip-row">
               {cat.items.map((skill) => (
