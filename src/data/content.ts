@@ -173,7 +173,7 @@ export const portfolioData = {
       role: "Full Stack Developer Intern",
       company: "Mudrika Finance Pvt. Ltd.",
       location: "Remote",
-      duration: "May 2022 – Jul 2022",
+      duration: "Apr 2022 – Jun 2022",
       highlights: [
         "Modeled MySQL schemas and fact tables for processed user data, setting up dependencies for downstream analytics.",
         "Built Node.js and PHP APIs with JWT-based authentication, and redesigned 70% of the dashboard UI in React Native."
